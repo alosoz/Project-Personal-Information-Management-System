@@ -1,0 +1,107 @@
+Proje: Kişisel Bilgi Yönetim Sistemi
+Proje Açıklaması: Bu projede, kullanıcıların kişisel bilgilerini (örneğin, isim, yaş, e-posta, adres) girmelerine ve bu bilgileri JSON dosyası olarak kaydetmelerine izin veren bir sistem geliştireceğiz. Ayrıca, JSON dosyasından bilgileri okuyabilecek ve yönetebileceğiz. Bu projede fonksiyonlar, sınıflar ve dinamik kod yazımına dair yeteneklerini geliştireceksin.
+
+Gereksinimler:
+
+Python (3.x)
+
+JSON modülü (Python ile birlikte gelir)
+
+Adım 1: Proje Dosya Yapısı
+Projeyi düzenlemek için aşağıdaki dosya yapısını kullanabiliriz:
+
+
+Kopyala
+personal_info_manager/
+│
+├── main.py
+├── personal_info.py
+└── data/
+    └── personal_info.json
+Adım 2: Sınıfları ve Fonksiyonları Tanımlama
+personal_info.py dosyasını oluştur ve aşağıdaki kodu ekle:
+
+python
+
+Kopyala
+import json
+import os
+
+class PersonalInfoManager:
+    def __init__(self, file_path):
+        self.file_path = file_path
+
+    def load_info(self):
+        if os.path.exists(self.file_path):
+            with open(self.file_path, 'r') as file:
+                return json.load(file)
+        else:
+        return {}
+
+    def save_info(self, info):
+        with open(self.file_path, 'w') as file:
+            json.dump(info, file, indent=4)
+
+    def add_info(self, name, age, email, address):
+        info = self.load_info()
+        info[name] = {
+            'age': age,
+            'email': email,
+            'address': address
+        }
+        self.save_info(info)
+Adım 3: Ana Program Dosyası
+main.py dosyasını oluştur ve aşağıdaki kodu ekle:
+
+python
+
+Kopyala
+from personal_info import PersonalInfoManager
+
+def main():
+    manager = PersonalInfoManager('data/personal_info.json')
+
+    while True:
+        print("\n1. Add Info")
+        print("2. View Info")
+        print("3. Exit")
+        choice = input("Choose an option: ")
+
+        if choice == '1':
+            name = input("Enter name: ")
+            age = input("Enter age: ")
+            email = input("Enter email: ")
+            address = input("Enter address: ")
+
+            manager.add_info(name, age, email, address)
+            print(f"Info for {name} added.")
+        elif choice == '2':
+            info = manager.load_info()
+            if info:
+                for name, details in info.items():
+                    print(f"\nName: {name}")
+                    print(f"Age: {details['age']}")
+                    print(f"Email: {details['email']}")
+                    print(f"Address: {details['address']}")
+            else:
+                print("No information found.")
+        elif choice == '3':
+            break
+        else:
+            print("Invalid choice. Please try again.")
+
+if __name__ == '__main__':
+    main()
+Adım 4: JSON Dosyası
+data klasörünün içine personal_info.json adında boş bir dosya oluştur.
+
+Adım 5: Projeyi Çalıştırma
+Terminalde proje klasörüne giderek main.py dosyasını çalıştır:
+
+Dinamik Kod Yazımı: Kullanıcıdan alınan bilgilerle dinamik olarak JSON dosyası güncellenir.
+
+Fonksiyonlar: Bilgi ekleme, bilgileri yükleme ve kaydetme işlemleri fonksiyonlar ile yapılır.
+
+Sınıflar: PersonalInfoManager sınıfı, yönetim işlemlerini düzenler.
+
+Bu proje ile Python'da fonksiyonlar ve sınıflar kullanımı hakkında kendini geliştirebilir, ayrıca JSON okuma ve yazma işlemlerini öğrenebilirsin. Kolay gelsin! 🚀
