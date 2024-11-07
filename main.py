@@ -14,24 +14,29 @@ class Main():
                 name = input("Enter name: ")
                 age = input("Enter age: ")
                 email = input("Enter email: ")
+                phone = input("Enter phone: ")
                 address = input("Enter address: ")
 
-                manager.add_info(name,age,email,address)
-                print(f"Info for {name} added")
+                manager.add_info(name,age,email,phone,address)
+                
             elif choice == '2':
-                info = manager.load_info()
-                if info == True:
+                name = input('Enter name to view: ')
+                info = manager.view_info(name)
+
+                if info:
+                    print(f'Name: {name}')
                     for name, details in info.items():
-                        print(f"\nName: {name}")
-                        print(f"Age: {details['age']}")
-                        print(f"Email: {details['email']}")
-                        print(f"Address: {details['address']}")
+                        print(f'{name.capitalize()}: {details}')
                 else:
                    print("No information found.") 
             elif choice == '3':
-                pass
+                #choise_for_update = input(f"please chouse wich info do you want to change for {name}\n
+                #                          1. age:\n2. email:\n3. phone:\n4. address: ")
+                name = input("Enter name to update")
+                manager.update_info(name)
             elif choice == '4':
-                pass
+                name = input("Enter name to delete")
+                manager.delete_info(name)
             elif choice == '5':
                 break
             else:
